@@ -2,11 +2,11 @@ package RequestObject;
 
 public class RequestAccount {
 
-    private String userName;
+    private String userName;         // sa fie exact la fel cum este in "requestbody.put..."
 
     private String password;
 
-    public String getUserName() {
+    public String getUserName() {          //Facem getteri si setteri  (era posibil si doar getteri)
         return userName;
     }
 
@@ -22,7 +22,7 @@ public class RequestAccount {
         this.password = password;
     }
 
-    public RequestAccount(String userName, String password) {
+    public RequestAccount(String userName, String password) {      // Si facem un constructor care sa tina datele noastre
         this.userName = userName;
         this.password = password;
     }

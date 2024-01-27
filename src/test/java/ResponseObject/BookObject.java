@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class BookObject {
 
     @JsonProperty("isbn")
-    public String isbn;                              // vedem daca trebuie modificata in private sau nu
+    public String isbn;                              //sa vedem daca trebuie modificata in private sau nu
 
     @JsonProperty("title")
     public String title;
@@ -31,7 +31,7 @@ public class BookObject {
     @JsonProperty("website")
     public String website;
 
-    public String getIsbn() {
+    public String getIsbn() {                    // facem doar getteri . Pe response-uri nu ar trebui cam niciodata sa facem setteri(ca in teorie response-ul este ce ne da serverul)
         return isbn;
     }
 

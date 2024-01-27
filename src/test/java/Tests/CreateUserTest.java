@@ -9,8 +9,6 @@ import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.response.ResponseBody;
 import io.restassured.specification.RequestSpecification;
-import io.restassured.specification.ResponseSpecification;
-import org.json.simple.JSONObject;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -20,7 +18,7 @@ public class CreateUserTest {
 
     public String username;
 
-    public String password;
+    public String password;            // Deci sunt niste valori pe care le vom da si trebuie pastrate tot timpul pe aceleasi
 
     public String token;
     @Test
@@ -48,8 +46,8 @@ public class CreateUserTest {
         // Configuram request-ul     (La un request ne trebuie 3 chestii : URL(il avem), HEADER-ul ( sa ia configurari de pe client) si BODY-ul( este structura aceea de JSON completata de noi cu user si parola)
         // Ca sa facem un BODY de tip JSON , trebuie sa definim un JSON object
 
-        username = "Alin" + System.currentTimeMillis();
-        password = "Alinache1.@";
+        username = "Alin" + System.currentTimeMillis();           // ca sa ne dea de fiecare data alt user(pt ca altfel ar fi zis mereu existed user), folosim o metoda care returneaza timpul curent raportat in milisecunde
+        password = "Alinache1.@";                     // Am sters "String" pentru a lua variabila de sus, sa fie globala , nu vizibila doar in metoda
 
 //        JSONObject requestBody= new JSONObject();
 //        requestBody.put("userName",username);
@@ -72,11 +70,11 @@ public class CreateUserTest {
         ResponseAccountSuccess responseAccountSuccess = response.body().as(ResponseAccountSuccess.class);
 //        System.out.println(responseAccountSuccess.getUserID());
 
-        Assert.assertNotNull(responseAccountSuccess.getUserID());       // verificam ca exista o valoare pentru field
+        Assert.assertNotNull(responseAccountSuccess.getUserID());       // verificam ca exista o valoare pentru field    ; nu am folosit Equals pentru ca mereu va fi unic
         Assert.assertEquals(responseAccountSuccess.getUsername(),username);      // verificam ca username are valoarea din request
-        Assert.assertNotNull(responseAccountSuccess.getBooks());
+        Assert.assertNotNull(responseAccountSuccess.getBooks());           // chiar daca este goala, validam ca nu este nulla , adica are acele paranteze drepte ( este diferit de empty)
 
-        userID=responseAccountSuccess.getUserID();
+        userID=responseAccountSuccess.getUserID();        // vrem sa il folosim mai departe, in urmatoarele requesturi(sa scoatem de pe el ce ne intereseaza) (mai jos:)
     }
 
     // Facem un request care ne genereaza un token
@@ -103,7 +101,7 @@ public class CreateUserTest {
         token=responseTokenSuccess.getToken();
     }
 
-    // Facem un GET pentru user-ul creat
+    // Facem un GET pentru user-ul creat(generat)
 
     public void interractNewUser(){
 
