@@ -8,12 +8,12 @@ public class ResponseAccountAuthSuccess {
 
     @JsonProperty("userId")
     private String userId;
-
+    //maparea unei prime variabile pe care respone-ul o oare
     @JsonProperty("username")
     private String username;
 
     @JsonProperty("books")
-    private List<BookObject> books;
+    private List<BookObject> books; // am construit un obiect care sa contina toate informatiile partii books
 
     public String getUserId() {
         return userId;

@@ -4,6 +4,7 @@ import LoggerUtility.LoggerUtility;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import groovy.util.logging.Log;
 import io.restassured.internal.RequestSpecificationImpl;
+import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -22,6 +23,21 @@ public class APIServiceHelper {    // Aici sa facem niste metode de ajutor la lo
         LoggerUtility.info(getRequestBody(requestSpecification));
     }
 
+    public static void responseLogs(Response response){
+        LoggerUtility.info("==========Response info==========");
+        LoggerUtility.info(getResponseStatusCode(response));
+        LoggerUtility.info(getResponseStatus(response));
+        LoggerUtility.info(getResponseBody(response));
+    }
+
+    private static String getResponseStatusCode(Response response){
+        return "Response Status : "+response.getStatusLine();
+    }
+
+    private static String getResponseStatus(Response response){
+        return "Response Status Code: "+response.getStatusCode();
+    }
+
     private static String getRequestUrl(String path) {
         return "Request URL : " + "https://demoqa.com" + path;
     }
@@ -31,8 +47,8 @@ public class APIServiceHelper {    // Aici sa facem niste metode de ajutor la lo
     }
 
     private static String getRequestBody(RequestSpecification requestSpecification) {
-        String requestBody = "Request BODY: \n";      // \n forteaza sa sara la randul urmator
-        Object object = ((RequestSpecificationImpl) requestSpecification).getBody();
+        String requestBody = "Request BODY: \n";      // \n forteaza sa sara la randul urmator ; pt ca daca am lasa fara, JSON-ul il baga langa si poate arata problematic
+        Object object = ((RequestSpecificationImpl)requestSpecification).getBody();
         if (object != null) {
             ObjectMapper mapper = new ObjectMapper();       // cea cu com.fast...... nu primul rezultat ! !! am facut importul de sus(object mapper) !!!
             try {
@@ -41,5 +57,14 @@ public class APIServiceHelper {    // Aici sa facem niste metode de ajutor la lo
             }
         }
         return requestBody;
+    }
+
+    private static String getResponseBody(Response response){
+        if (response.getBody() != null){
+            return "Response BODY: \n" + response.getBody().asPrettyString();
+        }
+        else {
+            return "Response BODY \n";
+        }
     }
 }

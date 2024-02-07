@@ -6,6 +6,11 @@ public class RequestAccountToken {
 
     private String password;
 
+    public RequestAccountToken(String userName, String password) {
+        this.userName = userName;
+        this.password = password;
+    }
+
     public String getUserName() {
         return userName;
     }
@@ -22,8 +27,5 @@ public class RequestAccountToken {
         this.password = password;
     }
 
-    public RequestAccountToken(String userName, String password) {
-        this.userName = userName;
-        this.password = password;
-    }
+
 }

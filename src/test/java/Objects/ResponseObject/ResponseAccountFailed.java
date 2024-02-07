@@ -2,17 +2,17 @@ package Objects.ResponseObject;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.util.List;
-
 public class ResponseAccountFailed {
 
+
+    // asta preia codul si mesajul din response
     @JsonProperty("code")
-    private String code;
+    private Integer code;
 
     @JsonProperty("message")
     private String message;
 
-    public String getCode() {
+    public Integer getCode() {
         return code;
     }
 

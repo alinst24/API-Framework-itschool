@@ -60,16 +60,15 @@ public class LoggerUtility {
 
         // Get list of all the files in form of String Array
         String[] fileNames = dir.list();
-
         try {
             // create object of PrintWriter for output file
             PrintWriter pw = new PrintWriter(regressionLogsPath + "output.log");
+
 
             // loop for reading the contents of all the files
             // in the directory GeeksForGeeks
             for (String fileName : fileNames) {
                 if(fileName.contains(".log")) {
-
                     // create instance of file from Name of
                     // the file stored in string Array
                     File f = new File(dir, fileName);
@@ -89,12 +88,8 @@ public class LoggerUtility {
                     pw.flush();
                 }
             }
-        }
-        catch (Exception exception){
+        } catch (Exception exception) {
             System.out.println(exception.getMessage());
         }
-
     }
-
-
 }

@@ -11,22 +11,33 @@ public class AccountServiceImpl implements AccountServiceInterface {   // e o co
 
     // Ca sa facem implementare trebuie sa ne gandim care este serviciul care trebuie apelat , si astfel primul serviciu este : APIService , unde avem accountAPIService, care acceseaa post-urile de care avem nevoie
     public AccountAPIService accountAPIService;
-    @Override
+
     public Response createAccount(RequestAccount requestAccount) {
-        accountAPIService = new AccountAPIService();
+        accountAPIService=new AccountAPIService();
         return accountAPIService.post(requestAccount, AccountEndpoints.ACCOUNT_CREATE);
+
     }
 
     @Override
     public Response generateToken(RequestAccountToken requestAccountToken) {
-        accountAPIService=new AccountAPIService();
-        return accountAPIService.post(requestAccountToken,AccountEndpoints.ACCOUNT_TOKEN);
+        accountAPIService = new AccountAPIService();
+        return accountAPIService.post(requestAccountToken, AccountEndpoints.ACCOUNT_TOKEN);
     }
 
     @Override
     public Response getSpecificAccount(String userID, String token) {
-        accountAPIService=new AccountAPIService();
-        String finalEndpoint=AccountEndpoints.ACCOUNT_USERSPECIFIC.replace("{userID}",userID);        // ca sa inlocuiasca {userID} cu userID
+        accountAPIService = new AccountAPIService();
+        String finalEndpoint = AccountEndpoints.ACCOUNT_USERSPECIFIC.replace("{userID}",userID);
         return accountAPIService.get(finalEndpoint,token);
     }
+
+    @Override
+    public Response deleteSpecificUser(String userID, String token) {     // daca am pus un nou request in AccountServiceInterface trebuie sa implementam metoda aici
+        accountAPIService = new AccountAPIService();
+        String finalEndpoint = AccountEndpoints.ACCOUNT_DELETE.replace("{userID}",userID);
+        return accountAPIService.delete(finalEndpoint,token);
+    }
+
+
+    //implementarea serviciului definit in inerfaceService
 }
